@@ -65,7 +65,7 @@ function activateFounderCode() {
 
         localStorage.setItem(
             "subscription",
-            "ENTERPRISE"
+            "FOUNDER"
         );
 
         status.textContent =
