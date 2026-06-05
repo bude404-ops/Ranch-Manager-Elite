@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacts CRM</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<header>
+    <h1>📇 Ranch Contacts</h1>
+</header>
+
+<main>
+
+<div class="card">
+
+    <h2>Add Contact</h2>
+
+    <input id="contactName" placeholder="Name">
+
+    <select id="contactType">
+
+        <option>Veterinarian</option>
+        <option>CPA</option>
+        <option>Feed Supplier</option>
+        <option>Buyer</option>
+        <option>Employee</option>
+        <option>Insurance Agent</option>
+        <option>Equipment Dealer</option>
+
+    </select>
+
+    <input id="contactPhone" placeholder="Phone">
+
+    <input id="contactEmail" placeholder="Email">
+
+    <button onclick="addContact()">
+        Save Contact
+    </button>
+
+</div>
+
+<div class="card">
+
+    <h2>Contacts</h2>
+
+    <div id="contactList"></div>
+
+</div>
+
+<script src="contacts.js"></script>
+
+</main>
+
+</body>
+</html>
