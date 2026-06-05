@@ -30,4 +30,26 @@ button{
     border:none;
     padding:12px 20px;
     cursor:pointer;
+.card {
+    background:white;
+    padding:15px;
+    margin:10px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+
+nav {
+    padding:10px;
+    background:#1d5e20;
+}
+
+nav a {
+    color:white;
+    margin-right:15px;
+    text-decoration:none;
+}
+
+input {
+    padding:10px;
+    margin:5px;
 }
