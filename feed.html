@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feed Management</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<header>
+    <h1>🌾 Feed Management</h1>
+    <p>Track Feed Usage & Costs</p>
+</header>
+
+<main>
+
+<div class="card">
+
+    <h2>Add Feed Record</h2>
+
+    <input
+        id="feedName"
+        placeholder="Feed Name">
+
+    <input
+        id="feedQuantity"
+        type="number"
+        placeholder="Quantity Used">
+
+    <input
+        id="feedCost"
+        type="number"
+        placeholder="Cost">
+
+    <input
+        id="feedDate"
+        type="date">
+
+    <button onclick="addFeedRecord()">
+        Save Feed Record
+    </button>
+
+</div>
+
+<div class="card">
+
+    <h2>Feed Records</h2>
+
+    <div id="feedList"></div>
+
+</div>
+
+</main>
+
+<script src="feed.js"></script>
+
+</body>
+</html>
