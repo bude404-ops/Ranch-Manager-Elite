@@ -276,3 +276,62 @@ th{
         width:100%;
     }
 }
+/* =========================
+   MOBILE NAV DROPDOWN (REPLACEMENT)
+========================= */
+
+.nav-wrapper{
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+}
+
+/* top bar */
+.nav-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:var(--primary);
+    color:white;
+    padding:12px 15px;
+}
+
+/* title */
+.nav-title{
+    font-weight:bold;
+}
+
+/* hamburger */
+.nav-toggle{
+    background:transparent;
+    border:none;
+    color:white;
+    font-size:26px;
+    cursor:pointer;
+}
+
+/* dropdown menu */
+.nav-menu{
+    display:none;
+    flex-direction:column;
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+/* links */
+.nav-menu a{
+    padding:14px;
+    text-decoration:none;
+    color:var(--primary);
+    border-bottom:1px solid #eee;
+    font-weight:bold;
+}
+
+.nav-menu a:hover{
+    background:#eef6ee;
+}
+
+/* open state */
+.nav-menu.active{
+    display:flex;
+}
