@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranch Documents</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<header>
+    <h1>📁 Ranch Documents</h1>
+    <p>Track Important Ranch Records</p>
+</header>
+
+<main>
+
+<div class="card">
+
+    <h2>Add Document Record</h2>
+
+    <input
+        id="documentName"
+        placeholder="Document Name">
+
+    <select id="documentType">
+
+        <option>Insurance Policy</option>
+        <option>Lease Agreement</option>
+        <option>Tax Document</option>
+        <option>Vet Certificate</option>
+        <option>Warranty</option>
+        <option>Permit</option>
+        <option>Other</option>
+
+    </select>
+
+    <input
+        id="documentDate"
+        type="date">
+
+    <input
+        id="documentLink"
+        placeholder="Document URL (Optional)">
+
+    <textarea
+        id="documentNotes"
+        placeholder="Notes"></textarea>
+
+    <button onclick="addDocument()">
+        Save Document
+    </button>
+
+</div>
+
+<div class="card">
+
+    <h2>Document Registry</h2>
+
+    <div id="documentList"></div>
+
+</div>
+
+</main>
+
+<script src="documents.js"></script>
+
+</body>
+</html>
