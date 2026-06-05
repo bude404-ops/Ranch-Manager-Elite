@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work Orders</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<header>
+    <h1>🔧 Work Orders</h1>
+    <p>Task & Maintenance Management</p>
+</header>
+
+<main>
+
+<div class="card">
+
+    <h2>Create Work Order</h2>
+
+    <input
+        id="workTitle"
+        placeholder="Task Title">
+
+    <select id="workCategory">
+
+        <option>Fence Repair</option>
+        <option>Water System</option>
+        <option>Equipment Repair</option>
+        <option>Livestock Task</option>
+        <option>Pasture Maintenance</option>
+        <option>General Ranch Work</option>
+
+    </select>
+
+    <select id="workPriority">
+
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+        <option>Critical</option>
+
+    </select>
+
+    <input
+        id="assignedTo"
+        placeholder="Assigned To">
+
+    <input
+        id="dueDate"
+        type="date">
+
+    <textarea
+        id="workNotes"
+        placeholder="Task Notes"></textarea>
+
+    <button onclick="addWorkOrder()">
+        Create Work Order
+    </button>
+
+</div>
+
+<div class="card">
+
+    <h2>Open Work Orders</h2>
+
+    <div id="workOrderList"></div>
+
+</div>
+
+</main>
+
+<script src="workorders.js"></script>
+
+</body>
+</html>
