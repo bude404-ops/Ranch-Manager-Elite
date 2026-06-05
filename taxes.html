@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tax Center</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<header>
+    <h1>📑 Tax Center</h1>
+    <p>CPA & Tax Reporting</p>
+</header>
+
+<main>
+
+<div class="dashboard-grid">
+
+    <div class="card">
+        <h3>Total Income</h3>
+        <p id="taxIncome">$0.00</p>
+    </div>
+
+    <div class="card">
+        <h3>Total Expenses</h3>
+        <p id="taxExpenses">$0.00</p>
+    </div>
+
+    <div class="card">
+        <h3>Estimated Profit</h3>
+        <p id="taxProfit">$0.00</p>
+    </div>
+
+</div>
+
+<div class="card">
+
+    <h2>CPA Export</h2>
+
+    <button onclick="exportCPA()">
+        Export CPA Report
+    </button>
+
+</div>
+
+<div class="card">
+
+    <h2>Schedule F Categories</h2>
+
+    <div id="taxSummary"></div>
+
+</div>
+
+</main>
+
+<script src="taxes.js"></script>
+
+</body>
+</html>
