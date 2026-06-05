@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranch Calendar</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<header>
+<h1>📅 Ranch Calendar</h1>
+</header>
+
+<main>
+
+<div class="card">
+
+<h2>Add Event</h2>
+
+<input id="eventTitle" placeholder="Event">
+
+<input id="eventDate" type="date">
+
+<select id="eventType">
+
+<option>Calving</option>
+<option>Vaccination</option>
+<option>Equipment Service</option>
+<option>Work Order</option>
+<option>General</option>
+
+</select>
+
+<textarea
+id="eventNotes"
+placeholder="Notes"></textarea>
+
+<button onclick="addEvent()">
+Add Event
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Upcoming Events</h2>
+
+<div id="calendarList"></div>
+
+</div>
+
+</main>
+
+<script src="calendar.js"></script>
+
+</body>
+</html>
