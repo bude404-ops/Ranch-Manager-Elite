@@ -9,3 +9,13 @@ localStorage.getItem("subscription") || "free";
 
 document.getElementById("planName").textContent =
 plan.toUpperCase();
+{
+    id: Date.now(),
+    tag: "",
+    species: "",
+    breed: "",
+    sex: "",
+    weight: "",
+    birthDate: "",
+    notes: ""
+}
