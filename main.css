@@ -132,4 +132,82 @@ select {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 10px;
     }
+:root{
+    --primary:#1d5e20;
+    --primary-dark:#154417;
+    --bg:#f4f6f4;
+    --card:#ffffff;
+    --text:#222;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,sans-serif;
+}
+
+header{
+    background:var(--primary);
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+nav{
+    background:white;
+    padding:10px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+    box-shadow:0 2px 4px rgba(0,0,0,.1);
+}
+
+nav a{
+    text-decoration:none;
+    color:var(--primary);
+    font-weight:bold;
+}
+
+main{
+    padding:15px;
+}
+
+.card{
+    background:var(--card);
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+button{
+    background:var(--primary);
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:12px;
+    cursor:pointer;
+    width:100%;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:12px;
 }
