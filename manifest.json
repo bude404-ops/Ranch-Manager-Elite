@@ -1,0 +1,8 @@
+{
+  "name":"Ranch Manager Elite",
+  "short_name":"RMP",
+  "start_url":"/",
+  "display":"standalone",
+  "background_color":"#ffffff",
+  "theme_color":"#1d5e20"
+}
