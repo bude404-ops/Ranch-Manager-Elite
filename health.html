@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Health</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<div class="nav-wrapper">
+    <div class="nav-bar">
+        <div class="nav-title">🐄 Ranch Manager</div>
+        <button class="nav-toggle" onclick="toggleNav()">☰</button>
+    </div>
+    <nav id="navMenu" class="nav-menu">
+        <a href="index.html">Dashboard</a>
+        <a href="animals.html">Animals</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="finance.html">Finance</a>
+        <a href="health.html">Health</a>
+        <a href="reports.html">Reports</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+</div>
+
+<header><h1>🩺 Health</h1></header>
+
+<main>
+
+<div class="card">
+    <h2>Add Health Record</h2>
+    <input placeholder="Animal Tag" id="animalTag">
+    <input placeholder="Condition">
+    <textarea placeholder="Notes"></textarea>
+    <button>Add Record</button>
+</div>
+
+<div class="card">
+    <h2>Health Records</h2>
+    <div id="healthList">No records</div>
+</div>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
