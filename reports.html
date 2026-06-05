@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reports</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<div class="nav-wrapper">
+    <div class="nav-bar">
+        <div class="nav-title">🐄 Ranch Manager</div>
+        <button class="nav-toggle" onclick="toggleNav()">☰</button>
+    </div>
+    <nav id="navMenu" class="nav-menu">
+        <a href="index.html">Dashboard</a>
+        <a href="animals.html">Animals</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="finance.html">Finance</a>
+        <a href="health.html">Health</a>
+        <a href="reports.html">Reports</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+</div>
+
+<header><h1>📊 Reports</h1></header>
+
+<main>
+
+<div class="card">
+    <h2>System Reports</h2>
+    <p>Animals: <span id="rAnimals">0</span></p>
+    <p>Inventory: <span id="rInventory">0</span></p>
+    <p>Expenses: <span id="rExpenses">$0</span></p>
+</div>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
