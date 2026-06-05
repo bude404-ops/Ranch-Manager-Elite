@@ -88,7 +88,13 @@ content="width=device-width, initial-scale=1.0">
 
 </main>
 
-<script src="finance.js"></script>
+<script src="app.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js");
+}
+</script>
 
 </body>
 </html>
