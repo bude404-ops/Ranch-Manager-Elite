@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipment Management</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<header>
+    <h1>🚜 Equipment Management</h1>
+    <p>Assets & Maintenance Tracking</p>
+</header>
+
+<main>
+
+<div class="card">
+
+    <h2>Add Equipment</h2>
+
+    <input
+        id="equipmentName"
+        placeholder="Equipment Name">
+
+    <select id="equipmentType">
+
+        <option>Tractor</option>
+        <option>Trailer</option>
+        <option>UTV</option>
+        <option>ATV</option>
+        <option>Truck</option>
+        <option>Implement</option>
+        <option>Other</option>
+
+    </select>
+
+    <input
+        id="equipmentHours"
+        type="number"
+        placeholder="Current Hours">
+
+    <input
+        id="serviceInterval"
+        type="number"
+        placeholder="Service Interval Hours">
+
+    <button onclick="addEquipment()">
+        Add Equipment
+    </button>
+
+</div>
+
+<div class="card">
+
+    <h2>Equipment Fleet</h2>
+
+    <div id="equipmentList"></div>
+
+</div>
+
+</main>
+
+<script src="equipment.js"></script>
+
+</body>
+</html>
