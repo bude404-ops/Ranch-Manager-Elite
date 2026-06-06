@@ -674,13 +674,22 @@ function updateDashboard() {
         } else {
 
             alerts.innerHTML =
-                lowStock.map(item => `
-                <div class="card">
-                    <strong>${item.name}</strong>
-                    <br>
-                    Qty: ${item.quantity}
-                </div>
-                `).join("");
+    lowStock.map(item => `
+
+    <div class="card">
+
+        <strong>
+            ${item.name}
+        </strong>
+
+        <br>
+
+        Qty:
+        ${item.quantity}
+
+    </div>
+
+    `).join("");
 
         }
     }
@@ -848,11 +857,10 @@ function refreshTaxPage() {
     });
 
     updateTaxes(
-        income,
-        expenses,
-        income - expenses
-    );
-
+    income,
+    expenses,
+    profit
+);
 }
 
 /* =====================================================
