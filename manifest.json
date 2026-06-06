@@ -1,0 +1,29 @@
+{
+    "name": "Ranch Manager Elite",
+    "short_name": "RanchElite",
+    "description": "The complete mobile ranch & farm operating system. Livestock, pasture, team, and financial management.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "display_override": ["standalone", "fullscreen"],
+    "orientation": "portrait",
+    "background_color": "#0a0f0a",
+    "theme_color": "#1a5c3a",
+    "scope": "./",
+    "lang": "en-US",
+    "categories": ["business", "productivity", "agriculture"],
+    "icons": [
+        {
+            "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect fill='%231a5c3a' width='192' height='192' rx='32'/%3E%3Ctext x='96' y='125' font-size='100' text-anchor='middle' fill='white'%3E🐄%3C/text%3E%3C/svg%3E",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect fill='%231a5c3a' width='512' height='512' rx='64'/%3E%3Ctext x='256' y='320' font-size='280' text-anchor='middle' fill='white'%3E🐄%3C/text%3E%3C/svg%3E",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": []
+}
