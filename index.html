@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ranch Manager Elite</title>
+
+<link rel="stylesheet" href="./css/styles.css"/>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header>
+    <h1 id="ranchTitle">Ranch Dashboard</h1>
+    <button onclick="toggleNav()">Menu</button>
+</header>
+
+<nav id="navMenu">
+    <button onclick="showSection('dashboard')">Dashboard</button>
+    <button onclick="showSection('animals')">Animals</button>
+    <button onclick="showSection('finance')">Finance</button>
+</nav>
+
+<main>
+
+<section id="dashboard">
+    <h2>Overview</h2>
+    <div id="ranchSummary"></div>
+    <canvas id="profitChart"></canvas>
+</section>
+
+<section id="finance">
+    <h2>Finance</h2>
+
+    <input id="transactionName" placeholder="Description"/>
+    <input id="transactionAmount" type="number" placeholder="Amount"/>
+
+    <select id="transactionType">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+    </select>
+
+    <button onclick="addTransaction()">Add</button>
+
+    <div id="transactionList"></div>
+
+    <h3>Totals</h3>
+    <p>Income: <span id="totalIncome"></span></p>
+    <p>Expenses: <span id="totalExpenses"></span></p>
+    <p>Profit: <span id="netProfit"></span></p>
+</section>
+
+<section id="animals">
+    <h2>Animals</h2>
+
+    <input id="tagNumber" placeholder="Tag Number"/>
+    <button onclick="addAnimal()">Add Animal</button>
+
+    <div id="animalList"></div>
+</section>
+
+</main>
+
+<script src="./js/storage.js"></script>
+<script src="./js/charts.js"></script>
+<script src="./js/app.js"></script>
+
+</body>
+</html>
