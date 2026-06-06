@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ranch OS</title>
+
+<meta name="theme-color" content="#1d5e20">
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="stylesheet" href="css/styles.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<!-- MOBILE HEADER -->
+
+<header class="header">
+
+    <div class="header-left">
+
+        <button
+            class="menu-btn"
+            onclick="toggleSidebar()">
+            ☰
+        </button>
+
+        <h1 id="ranchTitle">
+            Ranch OS
+        </h1>
+
+    </div>
+
+    <div class="header-right">
+
+        <span
+            id="planBadge"
+            class="plan-badge">
+            FREE
+        </span>
+
+    </div>
+
+</header>
+
+<!-- SIDEBAR -->
+
+<aside
+    id="sidebar"
+    class="sidebar">
+
+    <button onclick="showSection('dashboard')">
+        Dashboard
+    </button>
+
+    <button onclick="showSection('livestock')">
+        Livestock
+    </button>
+
+    <button onclick="showSection('paddocks')">
+        Paddocks
+    </button>
+
+    <button onclick="showSection('gps')">
+        GPS Maps
+    </button>
+
+    <button onclick="showSection('equipment')">
+        Equipment
+    </button>
+
+    <button onclick="showSection('inventory')">
+        Inventory
+    </button>
+
+    <button onclick="showSection('employees')">
+        Employees
+    </button>
+
+    <button onclick="showSection('workorders')">
+        Work Orders
+    </button>
+
+    <button onclick="showSection('finance')">
+        Finance
+    </button>
+
+    <button onclick="showSection('taxes')">
+        Taxes
+    </button>
+
+    <button onclick="showSection('reports')">
+        Reports
+    </button>
+
+    <button onclick="showSection('subscriptions')">
+        Subscription
+    </button>
+
+    <button onclick="showSection('settings')">
+        Settings
+    </button>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main-content">
+
+<!-- DASHBOARD -->
+
+<section
+    id="dashboard"
+    class="page-section">
+
+    <h2>Dashboard</h2>
+
+    <div class="card-grid">
+
+        <div class="card">
+            <h3>Animals</h3>
+            <p id="animalCount">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Paddocks</h3>
+            <p id="paddockCount">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Equipment</h3>
+            <p id="equipmentCount">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Employees</h3>
+            <p id="employeeCount">0</p>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Profit Trend</h3>
+
+        <canvas id="profitChart"></canvas>
+
+    </div>
+
+</section>
+
+<!-- LIVESTOCK -->
+
+<section
+    id="livestock"
+    class="page-section hidden">
+
+    <h2>Livestock</h2>
+
+    <div class="card">
+
+        <input
+            id="tagNumber"
+            placeholder="Tag Number">
+
+        <input
+            id="species"
+            placeholder="Species">
+
+        <input
+            id="breed"
+            placeholder="Breed">
+
+        <input
+            id="weight"
+            placeholder="Weight">
+
+        <button onclick="addAnimal()">
+            Add Animal
+        </button>
+
+    </div>
+
+    <div
+        id="animalList"
+        class="list-container">
+    </div>
+
+</section>
+
+<!-- PADDOCKS -->
+
+<section
+    id="paddocks"
+    class="page-section hidden">
+
+    <h2>Paddocks</h2>
+
+    <div class="card">
+
+        <input
+            id="paddockName"
+            placeholder="Paddock Name">
+
+        <input
+            id="paddockAcres"
+            placeholder="Acres">
+
+        <button onclick="addPaddock()">
+            Add Paddock
+        </button>
+
+    </div>
+
+    <div id="paddockList"></div>
+
+</section>
+
+<!-- GPS -->
+
+<section
+    id="gps"
+    class="page-section hidden">
+
+    <h2>GPS Mapping</h2>
+
+    <div class="card">
+
+        <p>
+            GPS field mapping will be
+            connected in gps.js
+        </p>
+
+        <div id="gpsMap">
+
+            Map Loading...
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- EQUIPMENT -->
+
+<section
+    id="equipment"
+    class="page-section hidden">
+
+    <h2>Equipment</h2>
+
+    <div class="card">
+
+        <input
+            id="equipmentName"
+            placeholder="Equipment">
+
+        <button onclick="addEquipment()">
+            Add Equipment
+        </button>
+
+    </div>
+
+    <div id="equipmentList"></div>
+
+</section>
+
+<!-- INVENTORY -->
+
+<section
+    id="inventory"
+    class="page-section hidden">
+
+    <h2>Inventory</h2>
+
+    <div id="inventoryList"></div>
+
+</section>
+
+<!-- EMPLOYEES -->
+
+<section
+    id="employees"
+    class="page-section hidden">
+
+    <h2>Employees</h2>
+
+    <div class="card">
+
+        <input
+            id="employeeName"
+            placeholder="Employee Name">
+
+        <button onclick="addEmployee()">
+            Add Employee
+        </button>
+
+    </div>
+
+    <div id="employeeList"></div>
+
+</section>
+
+<!-- WORK ORDERS -->
+
+<section
+    id="workorders"
+    class="page-section hidden">
+
+    <h2>Work Orders</h2>
+
+    <div class="card">
+
+        <input
+            id="workTitle"
+            placeholder="Work Order">
+
+        <button onclick="addWorkOrder()">
+            Create Work Order
+        </button>
+
+    </div>
+
+    <div id="workOrderList"></div>
+
+</section>
+
+<!-- FINANCE -->
+
+<section
+    id="finance"
+    class="page-section hidden">
+
+    <h2>Finance</h2>
+
+    <div class="card">
+
+        <input
+            id="transactionName"
+            placeholder="Description">
+
+        <input
+            id="transactionAmount"
+            type="number"
+            placeholder="Amount">
+
+        <select id="transactionType">
+
+            <option value="income">
+                Income
+            </option>
+
+            <option value="expense">
+                Expense
+            </option>
+
+        </select>
+
+        <button onclick="addTransaction()">
+            Add Transaction
+        </button>
+
+    </div>
+
+    <div id="transactionList"></div>
+
+</section>
+
+<!-- TAXES -->
+
+<section
+    id="taxes"
+    class="page-section hidden">
+
+    <h2>Taxes</h2>
+
+    <div class="card">
+
+        <p>
+            Income:
+            <span id="taxIncome">$0</span>
+        </p>
+
+        <p>
+            Expenses:
+            <span id="taxExpenses">$0</span>
+        </p>
+
+        <p>
+            Profit:
+            <span id="taxProfit">$0</span>
+        </p>
+
+    </div>
+
+</section>
+
+<!-- REPORTS -->
+
+<section
+    id="reports"
+    class="page-section hidden">
+
+    <h2>Reports</h2>
+
+    <div class="card">
+
+        <button onclick="generateReport()">
+            Generate Report
+        </button>
+
+    </div>
+
+</section>
+
+<!-- SUBSCRIPTIONS -->
+
+<section
+    id="subscriptions"
+    class="page-section hidden">
+
+    <h2>Subscription Plans</h2>
+
+    <div class="card">
+
+        <h3>Free</h3>
+        <p>Basic Ranch Management</p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Pro</h3>
+        <p>Advanced Ranch Tools</p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Enterprise</h3>
+        <p>Full Ranch OS Platform</p>
+
+        <input
+            id="enterpriseCode"
+            placeholder="Enter Code">
+
+        <button onclick="activateEnterprise()">
+            Activate
+        </button>
+
+    </div>
+
+</section>
+
+<!-- SETTINGS -->
+
+<section
+    id="settings"
+    class="page-section hidden">
+
+    <h2>Settings</h2>
+
+    <div class="card">
+
+        <input
+            id="ranchNameInput"
+            placeholder="Ranch Name">
+
+        <button onclick="saveSettings()">
+            Save Settings
+        </button>
+
+    </div>
+
+</section>
+
+</main>
+
+<script src="js/app.js"></script>
+<script src="js/subscriptions.js"></script>
+<script src="js/charts.js"></script>
+
+</body>
+
+</html>
