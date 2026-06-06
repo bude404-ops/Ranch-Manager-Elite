@@ -193,8 +193,10 @@ function addAnimal() {
     );
 
     renderAnimals();
+updateDashboard();
+updateReports();
 
-    tag.value = "";
+tag.value = "";
 }
 
 function renderAnimals() {
@@ -312,9 +314,10 @@ function addInventoryItem() {
     );
 
     renderInventory();
+updateDashboard();
+updateReports();
 
-    name.value = "";
-}
+name.value = "";
 
 function renderInventory() {
 
@@ -868,9 +871,7 @@ function refreshTaxPage() {
 /* =====================================================
    PAGE INIT
 ===================================================== */
- /* =====================================================
-   PAGE INIT
-===================================================== */
+
 
 function initializePage() {
 
