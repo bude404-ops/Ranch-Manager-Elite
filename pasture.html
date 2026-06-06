@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasture</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<div class="nav-wrapper">
+    <div class="nav-bar">
+        <div class="nav-title">🐄 Ranch Manager</div>
+        <button class="nav-toggle" onclick="toggleNav()">☰</button>
+    </div>
+    <nav id="navMenu" class="nav-menu">
+        <a href="index.html">Dashboard</a>
+        <a href="pasture.html">Pasture</a>
+        <a href="animals.html">Animals</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+</div>
+
+<header><h1>🌿 Pasture Management</h1></header>
+
+<main>
+
+<div class="card">
+    <h2>Add Pasture Zone</h2>
+    <input placeholder="Zone Name">
+    <input type="number" placeholder="Size (acres)">
+    <button>Add Zone</button>
+</div>
+
+<div class="card">
+    <h2>Pasture List</h2>
+    <p>No pastures yet</p>
+</div>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
