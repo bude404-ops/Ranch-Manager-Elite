@@ -1,0 +1,27 @@
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f4f6f4;
+}
+
+header {
+    background: #1d5e20;
+    color: white;
+    padding: 15px;
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: white;
+}
+
+.hidden { display: none; }
+
+.card {
+    background: white;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
