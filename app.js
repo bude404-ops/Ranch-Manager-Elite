@@ -569,9 +569,7 @@ function updateFinanceTotals() {
         expenses,
         profit
     );
-        }
     }
-}
 
 /* =====================================================
    DASHBOARD
@@ -677,23 +675,16 @@ function updateDashboard() {
 
             alerts.innerHTML =
                 lowStock.map(item => `
-
                 <div class="card">
-
-                    <strong>
-                        ${item.name}
-                    </strong>
-
+                    <strong>${item.name}</strong>
                     <br>
-
-                    Qty:
-                    ${item.quantity}
-
+                    Qty: ${item.quantity}
                 </div>
-
                 `).join("");
 
         }
+    }
+}
 /* =====================================================
    REPORTS
 ===================================================== */
