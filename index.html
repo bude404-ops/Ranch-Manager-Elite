@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Ranch OS Enterprise</title><link rel="manifest"
+      href="manifest.json"><link rel="stylesheet"
+      href="css/styles.css"><script src="https://cdn.jsdelivr.net/npm/chart.js"></script></head><body><header class="header"><div class="header-left">
+
+    <button
+        class="menu-btn"
+        onclick="toggleSidebar()">
+
+        ☰
+
+    </button>
+
+    <h1 id="ranchTitle">
+
+        Ranch OS Enterprise
+
+    </h1>
+
+</div>
+
+<div
+    id="planBadge"
+    class="plan-badge">
+
+    FREE
+
+</div>
+
+</header><nav
+    id="sidebar"
+    class="sidebar"><button onclick="showSection('dashboard')">
+    Dashboard
+</button>
+
+<button onclick="showSection('livestock')">
+    Livestock
+</button>
+
+<button onclick="showSection('paddocks')">
+    Paddocks
+</button>
+
+<button onclick="showSection('gps')">
+    GPS Maps
+</button>
+
+<button onclick="showSection('inventory')">
+    Inventory
+</button>
+
+<button onclick="showSection('equipment')">
+    Equipment
+</button>
+
+<button onclick="showSection('employees')">
+    Employees
+</button>
+
+<button onclick="showSection('workorders')">
+    Work Orders
+</button>
+
+<button onclick="showSection('finance')">
+    Finance
+</button>
+
+<button onclick="showSection('reports')">
+    Reports
+</button>
+
+<button onclick="showSection('taxes')">
+    Taxes
+</button>
+
+<button onclick="showSection('settings')">
+    Settings
+</button>
+
+</nav><main class="main-content"><!-- DASHBOARD --><section
+    id="dashboard"
+    class="page-section"><h2>
+    Dashboard
+</h2>
+
+<div class="card-grid">
+
+    <div class="card">
+        <h3>Total Animals</h3>
+        <p id="animalCount">0</p>
+    </div>
+
+    <div class="card">
+        <h3>Paddocks</h3>
+        <p id="paddockCount">0</p>
+    </div>
+
+    <div class="card">
+        <h3>Equipment</h3>
+        <p id="equipmentCount">0</p>
+    </div>
+
+    <div class="card">
+        <h3>Employees</h3>
+        <p id="employeeCount">0</p>
+    </div>
+
+</div>
+
+<div class="card">
+
+    <h3>
+        Profit Trend
+    </h3>
+
+    <div
+        style="
+        height:300px;
+        ">
+
+        <canvas
+            id="profitChart">
+
+        </canvas>
+
+    </div>
+
+</div>
+
+</section>
