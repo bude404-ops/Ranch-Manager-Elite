@@ -259,118 +259,72 @@ function renderAnimals() {
 function addInventoryItem() {
 
     const name =
-        document.getElementById(
-            "itemName"
-        );
+        document.getElementById("itemName");
 
     if (!name) return;
 
     if (!name.value.trim()) {
-
-        alert(
-            "Item name required"
-        );
-
+        alert("Item name required");
         return;
     }
 
     const inventory =
-        Ranch.storage.get(
-            "inventory",
-            []
-        );
+        Ranch.storage.get("inventory", []);
 
     inventory.push({
 
         id: Date.now(),
 
-        name:
-            name.value,
+        name: name.value,
 
         category:
-            document.getElementById(
-                "itemCategory"
-            )?.value || "",
+            document.getElementById("itemCategory")?.value || "",
 
         quantity:
-            Number(
-                document.getElementById(
-                    "itemQuantity"
-                )?.value || 0
-            ),
+            Number(document.getElementById("itemQuantity")?.value || 0),
 
         reorder:
-            Number(
-                document.getElementById(
-                    "reorderLevel"
-                )?.value || 0
-            )
+            Number(document.getElementById("reorderLevel")?.value || 0)
 
     });
 
-    Ranch.storage.set(
-        "inventory",
-        inventory
-    );
+    Ranch.storage.set("inventory", inventory);
 
     renderInventory();
-updateDashboard();
-updateReports();
+    updateDashboard();
+    updateReports();
 
-name.value = "";
-
+    name.value = "";
 }
+
+/* =========================
+   INVENTORY RENDER
+========================= */
 
 function renderInventory() {
 
     const container =
-        document.getElementById(
-            "inventoryList"
-        );
+        document.getElementById("inventoryList");
 
     if (!container) return;
 
     const inventory =
-        Ranch.storage.get(
-            "inventory",
-            []
-        );
+        Ranch.storage.get("inventory", []);
 
     if (!inventory.length) {
-
-        container.innerHTML =
-            "<p>No inventory.</p>";
-
+        container.innerHTML = "<p>No inventory.</p>";
         return;
     }
 
     container.innerHTML =
         inventory.map(item => `
-
         <div class="card">
-
-            <strong>
-                ${item.name}
-            </strong>
-
-            <br>
-
-            ${item.category}
-
-            <br>
-
-            Quantity:
-            ${item.quantity}
-
-            <br>
-
-            Reorder:
-            ${item.reorder}
-
+            <strong>${item.name}</strong><br>
+            ${item.category}<br>
+            Quantity: ${item.quantity}<br>
+            Reorder: ${item.reorder}
         </div>
-
-        `).join("");
-
+    `).join("");
 }
 
 /* =====================================================
