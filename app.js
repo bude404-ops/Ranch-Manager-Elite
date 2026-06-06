@@ -569,6 +569,8 @@ function updateFinanceTotals() {
         expenses,
         profit
     );
+        }
+    }
 }
 
 /* =====================================================
