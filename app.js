@@ -319,6 +319,8 @@ updateReports();
 
 name.value = "";
 
+}
+
 function renderInventory() {
 
     const container =
