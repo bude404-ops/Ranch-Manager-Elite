@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2D5A3D">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Ranch Manager Elite</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUmFuY2ggTWFuYWdlciBFbGl0ZSIsInNob3J0X25hbWUiOiJSYW5jaEVsaXRlIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiMyRDVBM0QifQ==">
+    <style>
+        :root {
+            --primary: #2D5A3D;
+            --primary-dark: #1E3D2A;
+            --primary-light: #4A7C59;
+            --accent: #D4A574;
+            --accent-light: #E8D5B7;
+            --danger: #C0392B;
+            --warning: #E67E22;
+            --success: #27AE60;
+            --info: #2980B9;
+            --bg: #F5F7FA;
+            --surface: #FFFFFF;
+            --surface-elevated: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #6B7280;
+            --text-muted: #9CA3AF;
+            --border: #E5E7EB;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 16px;
+            --radius-sm: 12px;
+            --radius-xs: 8px;
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0F172A;
+                --surface: #1E293B;
+                --surface-elevated: #334155;
+                --text-primary: #F1F5F9;
+                --text-secondary: #94A3B8;
+                --text-muted: #64748B;
+                --border: #334155;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: calc(1rem + var(--safe-top)) 1.5rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .brand-text h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .icon-btn:active {
+            transform: scale(0.95);
+            background: rgba(255,255,255,0.25);
+        }
+
+        .badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            background: var(--danger);
+            border-radius: 50%;
+            font-size: 0.65rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary);
+        }
+
+        /* Weather Widget */
+        .weather-widget {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            backdrop-filter: blur(10px);
+        }
+
+        .weather-icon {
+            font-size: 2rem;
+        }
+
+        .weather-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .weather-info p {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 1.5rem 1rem calc(5rem + var(--safe-bottom));
+            max-width: 768px;
+            margin: 0 auto;
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-action {
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 1rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:active {
+            transform: scale(0.98);
+        }
+
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-icon.green { background: rgba(39, 174, 96, 0.15); }
+        .stat-icon.amber { background: rgba(212, 165, 116, 0.2); }
+        .stat-icon.blue { background: rgba(41, 128, 185, 0.15); }
+        .stat-icon.red { background: rgba(192, 57, 43, 0.15); }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+        }
+
+        .stat-change.positive {
+            color: var(--success);
+            background: rgba(39, 174, 96, 0.1);
+        }
+
+        .stat-change.negative {
+            color: var(--danger);
+            background: rgba(192, 57, 43, 0.1);
+        }
+
+        /* Activity Feed */
+        .activity-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item:active {
+            background: var(--bg);
+        }
+
+        .activity-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-text {
+            font-size: 0.9375rem;
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-text strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .activity-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        @media (min-width: 640px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .feature-card:active {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-card:active::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 0.9375rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-desc {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Pasture Health */
+        .pasture-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .pasture-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .pasture-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pasture-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .pasture-status {
+            background: rgba(255,255,255,0.2);
+            padding: 0.375rem 0.875rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+        }
+
+        .pasture-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pasture-metric {
+            text-align: center;
+        }
+
+        .pasture-metric-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .pasture-metric-label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        /* Market Prices */
+        .market-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .market-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .market-item:last-child {
+            border-bottom: none;
+        }
+
+        .market-info h4 {
+            font-size: 0.9375rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .market-info p {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+
+        .market-price {
+            text-align: right;
+        }
+
+        .market-price-value {
+            font-size: 1.125rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .market-price-change {
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 0.5rem 1rem calc(0.5rem + var(--safe-bottom));
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.625rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            min-width: 64px;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            background: rgba(45, 90, 61, 0.1);
+        }
+
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+            stroke-width: 2;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: calc(5rem + var(--safe-bottom));
+            right: 1.5rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            z-index: 90;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .fab:active {
+            transform: scale(0.95) rotate(45deg);
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: slideUp 0.5s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        /* Touch feedback */
+        .touch-feedback {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .touch-feedback::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .touch-feedback:active::after {
+            width: 200px;
+            height: 200px;
+        }
+
+        /* Loading shimmer */
+        .shimmer {
+            background: linear-gradient(90deg, var(--surface) 25%, var(--bg) 50%, var(--surface) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Calendar strip */
+        .calendar-strip {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+            margin-bottom: 1rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .calendar-strip::-webkit-scrollbar {
+            display: none;
+        }
+
+        .calendar-day {
+            flex-shrink: 0;
+            width: 60px;
+            height: 70px;
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .calendar-day.active {
+            border-color: var(--primary);
+            background: rgba(45, 90, 61, 0.05);
+        }
+
+        .calendar-day:active {
+            transform: scale(0.95);
+        }
+
+        .calendar-day-name {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .calendar-day-number {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-top: 0.25rem;
+        }
+
+        .calendar-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+            margin-top: 0.5rem;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+            margin-bottom: 1.5rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .quick-actions::-webkit-scrollbar {
+            display: none;
+        }
+
+        .quick-action {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--surface);
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quick-action:active {
+            transform: scale(0.95);
+            background: var(--bg);
+        }
+
+        .quick-action svg {
+            width: 18px;
+            height: 18px;
+            color: var(--primary);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-sheet {
+            background: var(--surface);
+            border-radius: var(--radius) var(--radius) 0 0;
+            width: 100%;
+            max-width: 768px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.active .modal-sheet {
+            transform: translateY(0);
+        }
+
+        .modal-handle {
+            width: 40px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.5rem;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .modal-option:active {
+            background: var(--bg);
+        }
+
+        .modal-option-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .modal-option-text h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .modal-option-text p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: calc(1rem + var(--safe-top));
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--surface-elevated);
+            color: var(--text-primary);
+            padding: 1rem 1.5rem;
+            border-radius: 100px;
+            box-shadow: var(--shadow-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Pull to refresh indicator */
+        .ptr-indicator {
+            text-align: center;
+            padding: 1rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            display: none;
+        }
+
+        .ptr-indicator.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-top">
+            <div class="brand">
+                <div class="brand-icon">🐄</div>
+                <div class="brand-text">
+                    <h1>Ranch Manager</h1>
+                    <p>Elite Edition</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" onclick="showToast('🔔 3 new alerts')" aria-label="Notifications">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="badge">3</span>
+                </button>
+                <button class="icon-btn" onclick="toggleProfile()" aria-label="Profile">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="weather-widget">
+            <span class="weather-icon">☀️</span>
+            <div class="weather-info">
+                <h3>72°F</h3>
+                <p>Clear • Wind 8mph • Humidity 45%</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <a href="#" class="quick-action" onclick="showToast('📝 Quick record added')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                Quick Record
+            </a>
+            <a href="#" class="quick-action" onclick="showToast('📍 Location saved')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                GPS Tag
+            </a>
+            <a href="#" class="quick-action" onclick="showToast('📸 Photo captured')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Photo ID
+            </a>
+            <a href="#" class="quick-action" onclick="showToast('💉 Vaccination logged')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                Medicate
+            </a>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid animate-in">
+            <div class="stat-card touch-feedback" onclick="showToast('📊 Herd details')">
+                <div class="stat-icon green">🐮</div>
+                <div class="stat-value">247</div>
+                <div class="stat-label">Total Head</div>
+                <span class="stat-change positive">↑ +2 this week</span>
+            </div>
+            <div class="stat-card touch-feedback" onclick="showToast('💰 Financials')">
+                <div class="stat-icon amber">💵</div>
+                <div class="stat-value">$84.2K</div>
+                <div class="stat-label">Revenue YTD</div>
+                <span class="stat-change positive">↑ +12% vs LY</span>
+            </div>
+            <div class="stat-card touch-feedback" onclick="showToast('🌿 Pasture details')">
+                <div class="stat-icon blue">🌱</div>
+                <div class="stat-value">0.72</div>
+                <div class="stat-label">NDVI Index</div>
+                <span class="stat-change positive">↑ Good</span>
+            </div>
+            <div class="stat-card touch-feedback" onclick="showToast('⚠️ View alerts')">
+                <div class="stat-icon red">🔔</div>
+                <div class="stat-value">3</div>
+                <div class="stat-label">Active Alerts</div>
+                <span class="stat-change negative">↓ Action needed</span>
+            </div>
+        </div>
+
+        <!-- Pasture Health -->
+        <div class="pasture-card animate-in delay-1">
+            <div class="pasture-header">
+                <div class="pasture-title">🌿 Pasture Health</div>
+                <div class="pasture-status">Optimal</div>
+            </div>
+            <div class="pasture-metrics">
+                <div class="pasture-metric">
+                    <div class="pasture-metric-value">92%</div>
+                    <div class="pasture-metric-label">Coverage</div>
+                </div>
+                <div class="pasture-metric">
+                    <div class="pasture-metric-value">12"</div>
+                    <div class="pasture-metric-label">Growth</div>
+                </div>
+                <div class="pasture-metric">
+                    <div class="pasture-metric-value">14d</div>
+                    <div class="pasture-metric-label">Rotation</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar Strip -->
+        <div class="section-header">
+            <h2 class="section-title">📅 Schedule</h2>
+            <a href="#" class="section-action">View all →</a>
+        </div>
+        <div class="calendar-strip">
+            <div class="calendar-day">
+                <span class="calendar-day-name">Mon</span>
+                <span class="calendar-day-number">6</span>
+            </div>
+            <div class="calendar-day">
+                <span class="calendar-day-name">Tue</span>
+                <span class="calendar-day-number">7</span>
+                <div class="calendar-dot"></div>
+            </div>
+            <div class="calendar-day">
+                <span class="calendar-day-name">Wed</span>
+                <span class="calendar-day-number">8</span>
+            </div>
+            <div class="calendar-day active">
+                <span class="calendar-day-name">Thu</span>
+                <span class="calendar-day-number">9</span>
+                <div class="calendar-dot"></div>
+            </div>
+            <div class="calendar-day">
+                <span class="calendar-day-name">Fri</span>
+                <span class="calendar-day-number">10</span>
+            </div>
+            <div class="calendar-day">
+                <span class="calendar-day-name">Sat</span>
+                <span class="calendar-day-number">11</span>
+                <div class="calendar-dot"></div>
+            </div>
+            <div class="calendar-day">
+                <span class="calendar-day-name">Sun</span>
+                <span class="calendar-day-number">12</span>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="section-header">
+            <h2 class="section-title">📋 Recent Activity</h2>
+            <a href="#" class="section-action">History →</a>
+        </div>
+        <div class="activity-card animate-in delay-2">
+            <div class="activity-item touch-feedback">
+                <div class="activity-avatar">⚖️</div>
+                <div class="activity-content">
+                    <div class="activity-text">Weighed <strong>#1045 Angus Bull</strong></div>
+                    <div class="activity-time">2 hours ago • North Pasture</div>
+                </div>
+            </div>
+            <div class="activity-item touch-feedback">
+                <div class="activity-avatar">💉</div>
+                <div class="activity-content">
+                    <div class="activity-text">Vaccinated <strong>12 head</strong> in North Pasture</div>
+                    <div class="activity-time">5 hours ago • Dr. Smith</div>
+                </div>
+            </div>
+            <div class="activity-item touch-feedback">
+                <div class="activity-avatar">🚛</div>
+                <div class="activity-content">
+                    <div class="activity-text">Moved <strong>8 heifers</strong> to South Creek</div>
+                    <div class="activity-time">Yesterday • 2:30 PM</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="section-header">
+            <h2 class="section-title">🚀 Tools</h2>
+        </div>
+        <div class="features-grid animate-in delay-3">
+            <a href="#" class="feature-card touch-feedback" onclick="showToast('🛰️ NDVI scanner opening...')">
+                <div class="feature-icon">🛰️</div>
+                <div class="feature-title">NDVI Scan</div>
+                <div class="feature-desc">Satellite pasture monitoring</div>
+            </a>
+            <a href="#" class="feature-card touch-feedback" onclick="showToast('🗺️ Map loading...')">
+                <div class="feature-icon">🗺️</div>
+                <div class="feature-title">GPS Maps</div>
+                <div class="feature-desc">Virtual fencing & tracking</div>
+            </a>
+            <a href="#" class="feature-card touch-feedback" onclick="showToast('🤖 AI Assistant ready')">
+                <div class="feature-icon">🤖</div>
+                <div class="feature-title">AI Rancher</div>
+                <div class="feature-desc">Predictive insights</div>
+            </a>
+            <a href="#" class="feature-card touch-feedback" onclick="showToast('📊 Reports generating...')">
+                <div class="feature-icon">📈</div>
+                <div class="feature-title">Analytics</div>
+                <div class="feature-desc">Performance & compliance</div>
+            </a>
+            <a href="#" class="feature-card touch-feedback" onclick="showToast('👥 Team dashboard')">
+                <div class="feature-icon">👥</div>
+                <div class="feature-title">Team</div>
+                <div class="feature-desc">Collaboration & roles</div>
+            </a>
+            <a href="#" class="feature-card touch-feedback" onclick="showToast('🏥 Health records')">
+                <div class="feature-icon">🏥</div>
+                <div class="feature-title">Health</div>
+                <div class="feature-desc">Medical & breeding logs</div>
+            </a>
+        </div>
+
+        <!-- Market Prices -->
+        <div class="section-header">
+            <h2 class="section-title">📈 Market Prices</h2>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Live • CME</span>
+        </div>
+        <div class="market-card animate-in delay-3">
+            <div class="market-item">
+                <div class="market-info">
+                    <h4>Feeder Steers</h4>
+                    <p>700-800 lbs • Iowa</p>
+                </div>
+                <div class="market-price">
+                    <div class="market-price-value">$185.50</div>
+                    <div class="market-price-change positive">↑ +2.3%</div>
+                </div>
+            </div>
+            <div class="market-item">
+                <div class="market-info">
+                    <h4>Feeder Heifers</h4>
+                    <p>600-700 lbs • Kansas</p>
+                </div>
+                <div class="market-price">
+                    <div class="market-price-value">$172.25</div>
+                    <div class="market-price-change positive">↑ +1.8%</div>
+                </div>
+            </div>
+            <div class="market-item">
+                <div class="market-info">
+                    <h4>Slaughter Cows</h4>
+                    <p>Boner 80-85% • National</p>
+                </div>
+                <div class="market-price">
+                    <div class="market-price-value">$95.00</div>
+                    <div class="market-price-change negative">↓ -0.5%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Summary -->
+        <div class="section-header">
+            <h2 class="section-title">📦 Inventory</h2>
+            <a href="#" class="section-action">Manage →</a>
+        </div>
+        <div class="stats-grid" style="margin-bottom: 2rem;">
+            <div class="stat-card touch-feedback">
+                <div class="stat-icon amber">🌾</div>
+                <div class="stat-value">48%</div>
+                <div class="stat-label">Feed Stock</div>
+                <span class="stat-change negative">↓ 12 days left</span>
+            </div>
+            <div class="stat-card touch-feedback">
+                <div class="stat-icon blue">💊</div>
+                <div class="stat-value">24</div>
+                <div class="stat-label">Medicine</div>
+                <span class="stat-change positive">↑ 3 orders</span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="openModal()" aria-label="Add new">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+            <path d="M12 5v14M5 12h14"></path>
+        </svg>
+    </button>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="setActive(this)">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            Home
+        </a>
+        <a href="#" class="nav-item" onclick="setActive(this); showToast('🐮 Herd view')">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+            Herd
+        </a>
+        <a href="#" class="nav-item" onclick="setActive(this); showToast('🗺️ Map view')">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 7m0 13V7"></path></svg>
+            Map
+        </a>
+        <a href="#" class="nav-item" onclick="setActive(this); showToast('📊 Reports')">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            Reports
+        </a>
+        <a href="#" class="nav-item" onclick="setActive(this); showToast('⚙️ Settings')">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            More
+        </a>
+    </nav>
+
+    <!-- Add New Modal -->
+    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+        <div class="modal-sheet" onclick="event.stopPropagation()">
+            <div class="modal-handle"></div>
+            <h3 class="modal-title">Add New Record</h3>
+            
+            <div class="modal-option" onclick="showToast('🐮 Animal record created'); closeModal()">
+                <div class="modal-option-icon">🐮</div>
+                <div class="modal-option-text">
+                    <h4>New Animal</h4>
+                    <p>Add cattle, tags, and pedigree</p>
+                </div>
+            </div>
+            
+            <div class="modal-option" onclick="showToast('💉 Health record saved'); closeModal()">
+                <div class="modal-option-icon">💉</div>
+                <div class="modal-option-text">
+                    <h4>Health Event</h4>
+                    <p>Vaccination, treatment, or checkup</p>
+                </div>
+            </div>
+            
+            <div class="modal-option" onclick="showToast('🌿 Pasture updated'); closeModal()">
+                <div class="modal-option-icon">🌿</div>
+                <div class="modal-option-text">
+                    <h4>Pasture Record</h4>
+                    <p>Rotation, condition, or feed</p>
+                </div>
+            </div>
+            
+            <div class="modal-option" onclick="showToast('💰 Transaction logged'); closeModal()">
+                <div class="modal-option-icon">💰</div>
+                <div class="modal-option-text">
+                    <h4>Financial Entry</h4>
+                    <p>Sale, purchase, or expense</p>
+                </div>
+            </div>
+            
+            <div class="modal-option" onclick="showToast('📋 Task assigned'); closeModal()">
+                <div class="modal-option-icon">📋</div>
+                <div class="modal-option-text">
+                    <h4>Task / Reminder</h4>
+                    <p>Schedule work or set alerts</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span id="toast-icon">✓</span>
+        <span id="toast-message">Action completed</span>
+    </div>
+
+    <script>
+        // Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // Modal
+        function openModal() {
+            document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (!event || event.target === document.getElementById('modal')) {
+                document.getElementById('modal').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Navigation
+        function setActive(element) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // Profile toggle
+        function toggleProfile() {
+            showToast('👤 Profile menu');
+        }
+
+        // Calendar interaction
+        document.querySelectorAll('.calendar-day').forEach(day => {
+            day.addEventListener('click', function() {
+                document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('active'));
+                this.classList.add('active');
+                const num = this.querySelector('.calendar-day-number').textContent;
+                showToast(`📅 Selected June ${num}`);
+            });
+        });
+
+        // Pull to refresh simulation
+        let touchStartY = 0;
+        let isRefreshing = false;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (window.scrollY === 0 && !isRefreshing) {
+                const touchY = e.touches[0].clientY;
+                const diff = touchY - touchStartY;
+                if (diff > 100) {
+                    isRefreshing = true;
+                    showToast('🔄 Refreshing data...');
+                    setTimeout(() => {
+                        isRefreshing = false;
+                        showToast('✅ Data updated');
+                    }, 1500);
+                }
+            }
+        });
+
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
+                self.addEventListener('install', e => self.skipWaiting());
+                self.addEventListener('activate', e => e.waitUntil(clients.claim()));
+                self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => new Response('Offline'))));
+            `)).catch(() => console.log('SW registration skipped'));
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            showToast('🐄 Welcome to Ranch Manager Elite');
+        });
+    </script>
+</body>
+</html>
