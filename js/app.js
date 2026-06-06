@@ -593,7 +593,7 @@ renderTransactions();
 
 updateFinance();
 updateDashboard();
-updateChart();
+RanchCharts.refresh();
 }
 
 document.addEventListener(
