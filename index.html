@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="theme-color"
+    content="#2e6b3a">
+
+<title>
+    Ranch OS Enterprise
+</title>
+
+<link
+    rel="manifest"
+    href="manifest.json">
+
+<link
+    rel="stylesheet"
+    href="css/styles.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-left">
+
+        <button
+            class="menu-btn"
+            onclick="toggleSidebar()">
+
+            ☰
+
+        </button>
+
+        <h1 id="ranchTitle">
+
+            Ranch OS Enterprise
+
+        </h1>
+
+    </div>
+
+    <div
+        id="planBadge"
+        class="plan-badge">
+
+        FREE
+
+    </div>
+
+</header>
+
+<nav
+    id="sidebar"
+    class="sidebar">
+
+    <button onclick="showSection('dashboard')">
+        Dashboard
+    </button>
+
+    <button onclick="showSection('livestock')">
+        Livestock
+    </button>
+
+    <button onclick="showSection('inventory')">
+        Inventory
+    </button>
+
+    <button onclick="showSection('equipment')">
+        Equipment
+    </button>
+
+    <button onclick="showSection('employees')">
+        Employees
+    </button>
+
+    <button onclick="showSection('workorders')">
+        Work Orders
+    </button>
+
+    <button onclick="showSection('paddocks')">
+        Paddocks
+    </button>
+
+    <button onclick="showSection('gps')">
+        GPS Mapping
+    </button>
+
+    <button onclick="showSection('finance')">
+        Finance
+    </button>
+
+    <button onclick="showSection('reports')">
+        Reports
+    </button>
+
+    <button onclick="showSection('taxes')">
+        Taxes
+    </button>
+
+    <button onclick="showSection('health')">
+        Health Records
+    </button>
+
+    <button onclick="showSection('breeding')">
+        Breeding
+    </button>
+
+    <button onclick="showSection('feed')">
+        Feed Management
+    </button>
+
+    <button onclick="showSection('maintenance')">
+        Maintenance
+    </button>
+
+    <button onclick="showSection('analytics')">
+        Analytics
+    </button>
+
+    <button onclick="showSection('settings')">
+        Settings
+    </button>
+
+</nav>
+
+<main class="main-content">
+
+<!-- =====================================
+DASHBOARD
+===================================== -->
+
+<section
+    id="dashboard"
+    class="page-section">
+
+    <h2>
+        Dashboard
+    </h2>
+
+    <div class="card-grid">
+
+        <div class="card">
+
+            <h3>
+                Animals
+            </h3>
+
+            <p id="animalCount">
+                0
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>
+                Paddocks
+            </h3>
+
+            <p id="paddockCount">
+                0
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>
+                Equipment
+            </h3>
+
+            <p id="equipmentCount">
+                0
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>
+                Employees
+            </h3>
+
+            <p id="employeeCount">
+                0
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>
+            Profit Trend
+        </h3>
+
+        <canvas
+            id="profitChart">
+        </canvas>
+
+    </div>
+
+</section>
+
+<!-- =====================================
+LIVESTOCK
+===================================== -->
+
+<section
+    id="livestock"
+    class="page-section hidden">
+
+    <h2>
+        Livestock
+    </h2>
+
+    <input
+        id="tagNumber"
+        placeholder="Tag Number">
+
+    <input
+        id="species"
+        placeholder="Species">
+
+    <input
+        id="breed"
+        placeholder="Breed">
+
+    <input
+        id="weight"
+        placeholder="Weight">
+
+    <button
+        onclick="addAnimal()">
+
+        Add Animal
+
+    </button>
+
+    <div
+        id="animalList"
+        class="list-container">
+
+    </div>
+
+</section>
+
+<!-- =====================================
+INVENTORY
+===================================== -->
+
+<section
+    id="inventory"
+    class="page-section hidden">
+
+    <h2>
+        Inventory
+    </h2>
+
+    <input
+        id="inventoryName"
+        placeholder="Item Name">
+
+    <input
+        id="inventoryQty"
+        placeholder="Quantity">
+
+    <button
+        onclick="addInventoryItem()">
+
+        Add Inventory Item
+
+    </button>
+
+    <div
+        id="inventoryList"
+        class="list-container">
+
+    </div>
+
+</section>
+<!-- =====================================
+EQUIPMENT
+===================================== -->
+
+<section
+    id="equipment"
+    class="page-section hidden">
+
+    <h2>
+        Equipment
+    </h2>
+
+    <input
+        id="equipmentName"
+        placeholder="Equipment Name">
+
+    <button
+        onclick="addEquipment()">
+
+        Add Equipment
+
+    </button>
+
+    <div
+        id="equipmentList"
+        class="list-container">
+
+    </div>
+
+</section>
+
+<!-- =====================================
+EMPLOYEES
+===================================== -->
+
+<section
+    id="employees"
+    class="page-section hidden">
+
+    <h2>
+        Employees
+    </h2>
+
+    <input
+        id="employeeName"
+        placeholder="Employee Name">
+
+    <button
+        onclick="addEmployee()">
+
+        Add Employee
+
+    </button>
+
+    <div
+        id="employeeList"
+        class="list-container">
+
+    </div>
+
+</section>
+
+<!-- =====================================
+WORK ORDERS
+===================================== -->
+
+<section
+    id="workorders"
+    class="page-section hidden">
+
+    <h2>
+        Work Orders
+    </h2>
+
+    <input
+        id="workTitle"
+        placeholder="Work Order Title">
+
+    <button
+        onclick="addWorkOrder()">
+
+        Add Work Order
+
+    </button>
+
+    <div
+        id="workOrderList"
+        class="list-container">
+
+    </div>
+
+</section>
+
+<!-- =====================================
+PADDOCKS
+===================================== -->
+
+<section
+    id="paddocks"
+    class="page-section hidden">
+
+    <h2>
+        Paddocks
+    </h2>
+
+    <input
+        id="paddockName"
+        placeholder="Paddock Name">
+
+    <input
+        id="paddockAcres"
+        placeholder="Acres">
+
+    <button
+        onclick="addPaddock()">
+
+        Add Paddock
+
+    </button>
+
+    <div
+        id="paddockList"
+        class="list-container">
+
+    </div>
+
+</section>
+
+<!-- =====================================
+GPS MAPPING
+===================================== -->
+
+<section
+    id="gps"
+    class="page-section hidden">
+
+    <h2>
+        GPS Mapping
+    </h2>
+
+    <div class="card">
+
+        <p>
+            Map paddocks, fences,
+            gates, water sources,
+            corrals, and ranch assets.
+        </p>
+
+        <button
+            onclick="addFence()">
+
+            Add Fence
+
+        </button>
+
+        <button
+            onclick="addWaterSource()">
+
+            Add Water Source
+
+        </button>
+
+        <button
+            onclick="addGate()">
+
+            Add Gate
+
+        </button>
+
+    </div>
+
+    <div
+        id="gpsMap"
+        class="card">
+
+        GPS Map Module
+
+    </div>
+
+</section>
+
+<!-- =====================================
+FINANCE
+===================================== -->
+
+<section
+    id="finance"
+    class="page-section hidden">
+
+    <h2>
+        Finance
+    </h2>
+
+    <input
+        id="transactionName"
+        placeholder="Description">
+
+    <input
+        id="transactionAmount"
+        type="number"
+        placeholder="Amount">
+
+    <select
+        id="transactionType">
+
+        <option value="income">
+            Income
+        </option>
+
+        <option value="expense">
+            Expense
+        </option>
+
+    </select>
+
+    <button
+        onclick="addTransaction()">
+
+        Add Transaction
+
+    </button>
+
+    <div
+        id="transactionList"
+        class="list-container">
+
+    </div>
+
+</section>
+<!-- =====================================
+REPORTS
+===================================== -->
+
+<section
+    id="reports"
+    class="page-section hidden">
+
+    <h2>
+        Reports
+    </h2>
+
+    <div
+        id="reportContainer"
+        class="card">
+
+        Ranch reports will appear here.
+
+    </div>
+
+</section>
+
+<!-- =====================================
+TAX CENTER
+===================================== -->
+
+<section
+    id="taxes"
+    class="page-section hidden">
+
+    <h2>
+        Tax Center
+    </h2>
+
+    <div class="card">
+
+        <p>
+            Income:
+            <span id="taxIncome">
+                $0.00
+            </span>
+        </p>
+
+        <p>
+            Expenses:
+            <span id="taxExpenses">
+                $0.00
+            </span>
+        </p>
+
+        <p>
+            Profit:
+            <span id="taxProfit">
+                $0.00
+            </span>
+        </p>
+
+    </div>
+
+</section>
+
+<!-- =====================================
+HEALTH RECORDS
+===================================== -->
+
+<section
+    id="health"
+    class="page-section hidden">
+
+    <h2>
+        Health Records
+    </h2>
+
+    <div class="card">
+
+        Vaccinations, treatments,
+        medications, injuries,
+        veterinary visits,
+        withdrawal periods,
+        and health history.
+
+    </div>
+
+</section>
+
+<!-- =====================================
+BREEDING
+===================================== -->
+
+<section
+    id="breeding"
+    class="page-section hidden">
+
+    <h2>
+        Breeding
+    </h2>
+
+    <div class="card">
+
+        Sire tracking,
+        dam tracking,
+        breeding schedules,
+        offspring records,
+        calving and lambing history.
+
+    </div>
+
+</section>
+
+<!-- =====================================
+FEED MANAGEMENT
+===================================== -->
+
+<section
+    id="feed"
+    class="page-section hidden">
+
+    <h2>
+        Feed Management
+    </h2>
+
+    <div class="card">
+
+        Feed inventory,
+        consumption records,
+        feed costs,
+        supplement tracking,
+        pasture utilization.
+
+    </div>
+
+</section>
+
+<!-- =====================================
+MAINTENANCE
+===================================== -->
+
+<section
+    id="maintenance"
+    class="page-section hidden">
+
+    <h2>
+        Maintenance
+    </h2>
+
+    <div class="card">
+
+        Equipment maintenance,
+        service schedules,
+        repair logs,
+        parts inventory,
+        warranty tracking.
+
+    </div>
+
+</section>
+
+<!-- =====================================
+ANALYTICS
+===================================== -->
+
+<section
+    id="analytics"
+    class="page-section hidden">
+
+    <h2>
+        Analytics
+    </h2>
+
+    <div class="card">
+
+        Financial performance,
+        herd statistics,
+        production metrics,
+        grazing analytics,
+        operational KPIs.
+
+    </div>
+
+</section>
+
+<!-- =====================================
+SETTINGS
+===================================== -->
+
+<section
+    id="settings"
+    class="page-section hidden">
+
+    <h2>
+        Settings
+    </h2>
+
+    <input
+        id="ranchNameInput"
+        placeholder="Ranch Name">
+
+    <button
+        onclick="saveSettings()">
+
+        Save Ranch Name
+
+    </button>
+
+    <hr>
+
+    <h3>
+        Enterprise Access
+    </h3>
+
+    <input
+        id="enterpriseCode"
+        placeholder="Enter Code">
+
+    <button
+        onclick="activateEnterprise()">
+
+        Activate
+
+    </button>
+
+    <hr>
+
+    <button
+        onclick="exportBackup()">
+
+        Export Backup
+
+    </button>
+
+    <button
+        onclick="clearRanchData()">
+
+        Reset Ranch Data
+
+    </button>
+
+</section>
+
+</main>
+
+<!-- =====================================
+JAVASCRIPT
+===================================== -->
+
+<script src="js/storage.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/subscriptions.js"></script>
+<script src="js/gps.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register("./sw.js");
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>
