@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>Ranch Manager Elite</title>
+
+<style>
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f2f4f3;
+}
+
+/* Prevent scroll when sidebar open */
+body.sidebar-open {
+    overflow: hidden;
+}
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar {
+    height: 60px;
+    background: #1f3a1f;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1200;
+}
+
+.menu-icon {
+    font-size: 26px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidenav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100%;
+    background: #243524;
+    transform: translateX(-100%);
+    transition: 0.25s ease;
+    z-index: 1100;
+    padding-top: 60px;
+    overflow-y: auto;
+}
+
+.sidenav.active {
+    transform: translateX(0);
+}
+
+.sidenav a {
+    display: block;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidenav a:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+/* =====================================================
+   OVERLAY
+===================================================== */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s ease;
+    z-index: 1000;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
+
+.content {
+    margin-top: 60px;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
+<div class="topbar">
+    <div class="menu-icon" id="menuBtn">☰</div>
+    <div class="title">Ranch Manager Elite</div>
+</div>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+<div class="sidenav" id="sidebar">
+    <a href="#">Dashboard</a>
+    <a href="#">Livestock</a>
+    <a href="#">Feed</a>
+    <a href="#">Health</a>
+    <a href="#">Finance</a>
+    <a href="#">Settings</a>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+<div class="content">
+    <div class="card">Welcome to Ranch Manager Elite</div>
+    <div class="card">Mobile Sidebar System Fixed</div>
+</div>
+
+<!-- =====================================================
+     SCRIPT (SIDEBAR SYSTEM)
+===================================================== -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const sidebar = document.getElementById("sidebar");
+    const menuBtn = document.getElementById("menuBtn");
+    const overlay = document.getElementById("overlay");
+
+    function openSidebar() {
+        sidebar.classList.add("active");
+        overlay.classList.add("active");
+        document.body.classList.add("sidebar-open");
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+        document.body.classList.remove("sidebar-open");
+    }
+
+    function toggleSidebar() {
+        sidebar.classList.contains("active") ? closeSidebar() : openSidebar();
+    }
+
+    // Open/close button
+    menuBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        toggleSidebar();
+    });
+
+    // Close when clicking menu links
+    document.querySelectorAll(".sidenav a").forEach(link => {
+        link.addEventListener("click", closeSidebar);
+    });
+
+    // Click outside
+    document.addEventListener("click", function (e) {
+        if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+            closeSidebar();
+        }
+    });
+
+    // Overlay click
+    overlay.addEventListener("click", closeSidebar);
+
+    // ESC key support
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeSidebar();
+    });
+
+});
+</script>
+
+</body>
+</html>
