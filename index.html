@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ranch Manager Elite</title>
+
+<style>
+/* =========================
+   BASE
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+    overflow-x: hidden;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+header {
+    height: 60px;
+    background: #2f6b3f;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.menu-btn {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: -260px;
+    width: 260px;
+    height: calc(100% - 60px);
+    background: #1f3d2a;
+    color: white;
+    transition: 0.25s ease;
+    z-index: 999;
+    padding-top: 10px;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar a:active {
+    background: rgba(255,255,255,0.1);
+}
+
+/* =========================
+   OVERLAY
+========================= */
+.overlay {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    z-index: 998;
+}
+
+.overlay.show {
+    display: block;
+}
+
+/* =========================
+   MAIN
+========================= */
+main {
+    margin-top: 60px;
+    padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="menu-btn" id="menuBtn">☰</div>
+    <h3>Ranch Manager</h3>
+</header>
+
+<div class="sidebar" id="sidebar">
+    <a href="#" data-page="dashboard">Dashboard</a>
+    <a href="#" data-page="animals">Animals</a>
+    <a href="#" data-page="tasks">Tasks</a>
+    <a href="#" data-page="settings">Settings</a>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<main>
+    <h2>Dashboard</h2>
+    <p>Welcome to your ranch system.</p>
+</main>
+
+<script>
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const menuBtn = document.getElementById("menuBtn");
+const links = sidebar.querySelectorAll("a");
+
+// OPEN SIDEBAR
+function openSidebar() {
+    sidebar.classList.add("open");
+    overlay.classList.add("show");
+}
+
+// CLOSE SIDEBAR
+function closeSidebar() {
+    sidebar.classList.remove("open");
+    overlay.classList.remove("show");
+}
+
+// TOGGLE
+menuBtn.addEventListener("click", () => {
+    if (sidebar.classList.contains("open")) {
+        closeSidebar();
+    } else {
+        openSidebar();
+    }
+});
+
+// CLICK OVERLAY CLOSES
+overlay.addEventListener("click", closeSidebar);
+
+// CLICK MENU ITEM CLOSES (IMPORTANT FIX)
+links.forEach(link => {
+    link.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const page = link.getAttribute("data-page");
+
+        // simulate navigation swap
+        document.querySelector("main").innerHTML = `
+            <h2>${page.charAt(0).toUpperCase() + page.slice(1)}</h2>
+            <p>Loaded ${page} page</p>
+        `;
+
+        closeSidebar(); // 🔥 THIS is the fix you were missing
+    });
+});
+
+// OPTIONAL: ESC closes sidebar (desktop testing)
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeSidebar();
+});
+</script>
+
+</body>
+</html>
