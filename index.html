@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranch Manager Elite</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header>
+    <h1 id="ranchTitle">Ranch Manager Elite</h1>
+</header>
+
+<main>
+
+    <!-- DASHBOARD -->
+    <section class="card">
+        <h2>Dashboard</h2>
+        <p>Animals: <span id="animalCount">0</span></p>
+        <p>Inventory: <span id="inventoryCount">0</span></p>
+    </section>
+
+    <!-- ANIMALS -->
+    <section class="card">
+        <h2>Animals</h2>
+
+        <input id="tagNumber" placeholder="Tag Number">
+        <input id="species" placeholder="Species">
+        <input id="breed" placeholder="Breed">
+        <input id="sex" placeholder="Sex">
+        <input id="weight" placeholder="Weight">
+
+        <button onclick="addAnimal()">Add Animal</button>
+
+        <div id="animalList"></div>
+    </section>
+
+    <!-- INVENTORY -->
+    <section class="card">
+        <h2>Inventory</h2>
+
+        <input id="itemName" placeholder="Item Name">
+        <input id="itemCategory" placeholder="Category">
+        <input id="itemQuantity" placeholder="Quantity">
+        <input id="reorderLevel" placeholder="Reorder Level">
+
+        <button onclick="addInventoryItem()">Add Item</button>
+
+        <div id="inventoryList"></div>
+        <div id="lowStockAlerts"></div>
+    </section>
+
+    <!-- FINANCE -->
+    <section class="card">
+        <h2>Finance</h2>
+
+        <input id="transactionName" placeholder="Description">
+        <input id="transactionAmount" placeholder="Amount">
+
+        <select id="transactionType">
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+        </select>
+
+        <button onclick="addTransaction()">Add Transaction</button>
+
+        <div id="transactionList"></div>
+
+        <p>Income: <span id="totalIncome">$0</span></p>
+        <p>Expenses: <span id="totalExpenses">$0</span></p>
+        <p>Profit: <span id="netProfit">$0</span></p>
+
+        <!-- 📊 CHART -->
+        <canvas id="profitChart"></canvas>
+    </section>
+
+</main>
+
+<script src="app.js"></script>
+
+</body>
+</html>
